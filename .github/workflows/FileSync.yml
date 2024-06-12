@@ -1,0 +1,27 @@
+
+name: uploadToS3
+on:
+  push:
+    branches: [ "Test" ]
+
+env:
+  BUCKET_NAME : "prod-bizanalytica"
+  AWS_REGION : "us-east-2"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@main
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::407803154605:user/brajesh.mishra@scrubsandbeyond.com
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Sync Airflow files to the MWAA S3 bucket with the AWS CLI
+        run: |           
+          aws s3 sync . s3://${{ env.BUCKET_NAME }} --follow-symlinks --delete --exclude '.git/*'
+
+
+        
