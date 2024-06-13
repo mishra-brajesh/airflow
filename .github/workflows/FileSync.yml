@@ -2,7 +2,7 @@
 name: uploadToS3
 on:
   push:
-    branches: [ "Test" ]
+    branches: [ "TEST" ]
 
 env:
   BUCKET_NAME : "gitsyncs3"
