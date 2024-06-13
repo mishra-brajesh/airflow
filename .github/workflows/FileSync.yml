@@ -5,8 +5,8 @@ on:
     branches: [ "Test" ]
 
 env:
-  BUCKET_NAME : "prod-bizanalytica"
-  AWS_REGION : "us-east-2"
+  BUCKET_NAME : "gitsyncs3"
+  AWS_REGION : "us-east-1"
 
 jobs:
   deploy:
@@ -17,7 +17,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::407803154605:user/brajesh.mishra@scrubsandbeyond.com
+          role-to-assume: arn:aws:iam::474227982336:user/brajesh.mishra@mastek.com
           aws-region: ${{ env.AWS_REGION }}
       - name: Sync Airflow files to the MWAA S3 bucket with the AWS CLI
         run: |           
